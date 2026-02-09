@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SW4 Shop</title>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: pink;
+        }
+
+        /* SFONDO AGGIORNATO */
+        .background {
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+                url('./sfondo.jpg') center/cover no-repeat;
+            filter: blur(6px) brightness(1.2);
+            z-index: -1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        /* BOX “vetro” luminoso */
+        .box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .box:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
+        }
+
+        .box h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .box p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* ICONA DISCORD */
+        .discord-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .discord-icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .discord-icon:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="background"></div>
+
+<!-- ICONA DISCORD -->
+<a href="https://discord.gg/8aQXfM7P" target="_blank" class="discord-icon">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord" />
+</a>
+
+<div class="content">
+    <header>Streez War 4 Shop</header>
+
+    <div class="container">
+        <div class="box" onclick="vaiARoblox(1)">
+            <h2>Custom Emoji</h2>
+            <p>70 Robux</p>
+        </div>
+
+        <div class="box" onclick="vaiARoblox(2)">
+            <h2>Custom Name</h2>
+            <p>90 Robux</p>
+        </div>
+
+        <div class="box" onclick="vaiARoblox(3)">
+            <h2>Custom Livello</h2>
+            <p>100 Robux</p>
+        </div>
+
+        <div class="box" onclick="vaiARoblox(4)">
+            <h2>Custom Avatar</h2>
+            <p>200 Robux</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function vaiARoblox(id) {
+        const links = {
+            1: "https://www.roblox.com/game-pass/ID1",
+            2: "https://www.roblox.com/game-pass/ID2",
+            3: "https://www.roblox.com/game-pass/ID3",
+            4: "https://www.roblox.com/game-pass/ID4"
+        };
+
+        window.open(links[id], "_blank");
+    }
+</script>
+
+</body>
+</html>
+
+
