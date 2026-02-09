@@ -51,15 +51,15 @@
                 0 0 15px #ffffff;
         }
 
-        /* CONTAINER BOX ORIZZONTALE */
+        /* CONTAINER BOX PRINCIPALI */
         .container {
             max-width: 1000px;
             margin: 20px auto 0;
             padding: 20px;
             display: flex;
-            justify-content: center; /* centra le box */
-            gap: 20px; /* distanza tra le box */
-            flex-wrap: wrap; /* va a capo su schermi piccoli */
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Desktop: va a capo se necessario */
         }
 
         /* BOX “vetro” luminoso con hover */
@@ -122,30 +122,23 @@
             margin: 50px 0;
         }
 
-        /* RESPONSIVE MOBILE */
+        /* RESPONSIVE MOBILE: BOX PRINCIPALI VERTICALI */
         @media (max-width: 768px) {
             .container {
-                gap: 15px;
-                padding: 10px;
-            }
-            header {
-                font-size: 2.2rem;
-            }
-            .box {
-                min-width: 160px;  /* riduce dimensione per farle stare tutte */
-                max-width: 180px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .container {
-                flex-direction: column; /* le box vanno verticali tutte visibili */
+                flex-direction: column; /* verticali */
                 align-items: center;
                 gap: 15px;
             }
             .box {
+                min-width: 160px;
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .box {
                 min-width: 140px;
-                max-width: 160px;
+                max-width: 180px;
             }
         }
     </style>
