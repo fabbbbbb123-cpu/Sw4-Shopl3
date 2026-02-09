@@ -27,6 +27,7 @@
             filter: blur(2px) brightness(1.1);
         }
 
+        /* CONTENT GENERALE */
         .content {
             position: relative;
             z-index: 1;
@@ -117,7 +118,7 @@
         .discord-icon img {
             width: 80%;
             height: 80%;
-            filter: brightness(1) invert(1); /* rende icona completamente bianca */
+            filter: brightness(1) invert(1); /* icona completamente bianca */
         }
 
         .discord-icon:hover {
@@ -149,9 +150,15 @@
                 height: 45px;
             }
 
-            /* Header più piccolo per mobile */
+            /* Header più piccolo e centrato verticalmente */
             header {
                 font-size: 2rem;
+                margin-top: 10vh;
+                margin-bottom: 5vh;
+            }
+
+            .content {
+                justify-content: flex-start;
             }
         }
 
@@ -165,9 +172,10 @@
                 height: 40px;
             }
 
-            /* Header ancora più piccolo su schermi piccoli */
             header {
                 font-size: 1.6rem;
+                margin-top: 8vh;
+                margin-bottom: 4vh;
             }
         }
     </style>
@@ -285,3 +293,4 @@
 
 </body>
 </html>
+
