@@ -1,296 +1,242 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SW4 Shop</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streez War 4 Shop</title>
 
-    <!-- FONT FUTURISTICO -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        /* BODY BASE */
-        body {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            color: #fff;
-            overflow-x: hidden;
-            background: #000;
-        }
+<style>
+body{
+    margin:0;
+    font-family:'Rajdhani',sans-serif;
+    background:#000;
+    color:#fff;
+    overflow:hidden;
+}
 
-        /* SFONDO PARTICELLE NEON */
-        #backgroundCanvas {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: #000;
-            filter: blur(2px) brightness(1.1);
-        }
+#backgroundCanvas{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+}
 
-        /* CONTENT GENERALE */
-        .content {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            padding-bottom: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+/* LAYOUT */
+.wrapper{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
-        /* HEADER NEON BIANCO */
-        header {
-            text-align: center;
-            padding: 30px 0;
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 
-                0 0 5px #ffffff,
-                0 0 10px #ffffff,
-                0 0 15px #ffffff;
-        }
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    align-items:center;
+}
 
-        /* CONTAINER BOX PRINCIPALI */
-        .container {
-            max-width: 1000px;
-            margin: 20px auto 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap; /* Desktop: va a capo se necessario */
-        }
+/* === PROFILE HEADER === */
+.profile{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    margin-bottom:25px;
+    margin-top:-40px;
+}
 
-        /* BOX “vetro” luminoso con hover */
-        .box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            min-width: 220px;
-            max-width: 240px;
-        }
+.profile img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:2px solid #7a3cff;
+}
 
-        .box:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.1);
-        }
+.profile span{
+    font-size:1.3rem;
+    font-weight:700;
+    letter-spacing:1px;
+    color:#fff;
+    text-shadow:0 0 10px rgba(150,80,255,0.8);
+}
 
-        .box h2 {
-            margin-bottom: 10px;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #fff;
-        }
+/* BUTTON BASE */
+.menu-btn{
+    width:240px;
+    padding:14px 22px;
+    border-radius:999px;
+    background:#2a2a2a;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,0.12);
+    transition:0.3s;
+    font-size:1rem;
+}
 
-        .box p {
-            opacity: 0.9;
-            font-size: 1rem;
-            color: #fff;
-        }
+/* ICONA SHOP */
+.shop-icon{
+    width:18px;
+    height:18px;
+    fill:#fff;
+}
 
-        /* ICONA DISCORD - CORNICE SIMILE BOX, BIANCA */
-        .discord-icon {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            z-index: 10;
-            cursor: pointer;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+/* HOVER VIOLA */
+.menu-btn:hover{
+    background:linear-gradient(135deg,#7a3cff,#9f6bff);
+    box-shadow:0 0 30px rgba(150,80,255,0.7);
+    transform:scale(1.05);
+}
 
-        .discord-icon img {
-            width: 80%;
-            height: 80%;
-            filter: brightness(1) invert(1); /* icona completamente bianca */
-        }
+/* PLAY */
+.menu-btn.primary{
+    background:linear-gradient(135deg,#5f2cff,#8f5cff);
+    box-shadow:0 0 35px rgba(150,80,255,0.8);
+}
 
-        .discord-icon:hover {
-            transform: scale(1.3) rotate(10deg);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-        }
+/* DISABLED */
+.menu-btn.disabled{
+    opacity:0.4;
+    pointer-events:none;
+}
 
-        /* BOX GIOCA ORA CENTRATA */
-        .play-box {
-            margin: 50px 0;
-        }
+/* SHOP LIST */
+.shop-list{
+    display:none;
+    flex-direction:column;
+    gap:10px;
+    margin-top:10px;
+}
 
-        /* RESPONSIVE MOBILE */
-        @media (max-width: 768px) {
-            /* Box principali verticali */
-            .container {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            .box {
-                min-width: 160px;
-                max-width: 200px;
-            }
-
-            /* Discord più piccolo */
-            .discord-icon {
-                width: 45px;
-                height: 45px;
-            }
-
-            /* Header più piccolo e centrato verticalmente */
-            header {
-                font-size: 2rem;
-                margin-top: 10vh;
-                margin-bottom: 5vh;
-            }
-
-            .content {
-                justify-content: flex-start;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .box {
-                min-width: 140px;
-                max-width: 180px;
-            }
-            .discord-icon {
-                width: 40px;
-                height: 40px;
-            }
-
-            header {
-                font-size: 1.6rem;
-                margin-top: 8vh;
-                margin-bottom: 4vh;
-            }
-        }
-    </style>
+/* MOBILE */
+@media(max-width:600px){
+    .menu-btn{width:200px}
+}
+</style>
 </head>
+
 <body>
 
-<!-- SFONDO PARTICELLE -->
 <canvas id="backgroundCanvas"></canvas>
 
-<!-- ICONA DISCORD -->
-<a href="https://discord.gg/8aQXfM7P" target="_blank" class="discord-icon">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord" />
-</a>
+<div class="wrapper">
+<div class="menu">
 
-<div class="content">
-    <header>Streez War 4 Shop</header>
+<!-- PROFILE -->
+<div class="profile">
+    <img src="https://www.roblox.com/headshot-thumbnail/image?userId=1&width=150&height=150">
+    <span id="username">Guest</span>
+</div>
 
-    <!-- BOX GIOCA ORA CENTRATA -->
-    <div class="box play-box" onclick="vaiAlGioco()">
-        <h2>Gioca Ora!</h2>
-        <p>Clicca qui per aprire il gioco Roblox</p>
-    </div>
+<!-- PLAY -->
+<div class="menu-btn primary disabled" id="playBtn" onclick="vaiAlGioco()">
+    ▶ PLAY
+</div>
 
-    <!-- BOX PRINCIPALI -->
-    <div class="container">
-        <div class="box" onclick="vaiARoblox(1)">
-            <h2>Custom Emoji</h2>
-            <p>70 Robux</p>
-        </div>
+<!-- SHOP -->
+<div class="menu-btn" onclick="toggleShop()">
+    <svg class="shop-icon" viewBox="0 0 24 24">
+        <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 10 19h10v-2H10.42a.25.25 0 0 1-.23-.37L11.1 15h5.45a2 2 0 0 0 1.8-1.1l3.58-6.49A1 1 0 0 0 21 6H7z"/>
+        <circle cx="10" cy="21" r="1.5"/>
+        <circle cx="18" cy="21" r="1.5"/>
+    </svg>
+    SHOP
+</div>
 
-        <div class="box" onclick="vaiARoblox(2)">
-            <h2>Custom Name</h2>
-            <p>90 Robux</p>
-        </div>
+<div class="shop-list" id="shopList">
+    <div class="menu-btn" onclick="vaiARoblox(1)">Custom Emoji – 70 R$</div>
+    <div class="menu-btn" onclick="vaiARoblox(2)">Custom Name – 90 R$</div>
+    <div class="menu-btn" onclick="vaiARoblox(3)">Custom Level – 100 R$</div>
+    <div class="menu-btn" onclick="vaiARoblox(4)">Custom Avatar – 200 R$</div>
+</div>
 
-        <div class="box" onclick="vaiARoblox(3)">
-            <h2>Custom Livello</h2>
-            <p>100 Robux</p>
-        </div>
+<!-- LOGIN / LOGOUT -->
+<div class="menu-btn" onclick="login()">LOGIN</div>
+<div class="menu-btn" onclick="logout()">LOGOUT</div>
 
-        <div class="box" onclick="vaiARoblox(4)">
-            <h2>Custom Avatar</h2>
-            <p>200 Robux</p>
-        </div>
-    </div>
+</div>
 </div>
 
 <script>
-    // FUNZIONE BOX
-    function vaiARoblox(id) {
-        const links = {
-            1: "https://www.roblox.com/game-pass/ID1",
-            2: "https://www.roblox.com/game-pass/ID2",
-            3: "https://www.roblox.com/game-pass/ID3",
-            4: "https://www.roblox.com/game-pass/ID4"
-        };
-        window.open(links[id], "_blank");
+let logged=false;
+
+function login(){
+    logged=true;
+    document.getElementById("username").innerText="StreezPlayer";
+    document.getElementById("playBtn").classList.remove("disabled");
+}
+
+function logout(){
+    logged=false;
+    document.getElementById("username").innerText="Guest";
+    document.getElementById("playBtn").classList.add("disabled");
+}
+
+function toggleShop(){
+    const list=document.getElementById("shopList");
+    list.style.display = list.style.display==="flex" ? "none" : "flex";
+}
+
+function vaiARoblox(id){
+    const links={
+        1:"https://www.roblox.com/game-pass/ID1",
+        2:"https://www.roblox.com/game-pass/ID2",
+        3:"https://www.roblox.com/game-pass/ID3",
+        4:"https://www.roblox.com/game-pass/ID4"
+    };
+    window.open(links[id],"_blank");
+}
+
+function vaiAlGioco(){
+    if(logged){
+        window.open("https://www.roblox.com/games/ID_GIOCO","_blank");
     }
+}
 
-    // FUNZIONE PER APRIRE IL GIOCO
-    function vaiAlGioco() {
-        window.open("https://www.roblox.com/games/ID_GIOCO", "_blank");
-    }
+/* PARTICELLE */
+const c=document.getElementById("backgroundCanvas");
+const ctx=c.getContext("2d");
+let w=c.width=innerWidth,h=c.height=innerHeight;
+const p=[];
 
-    // PARTICELLE BIANCO NEON SFUMATE
-    const canvas = document.getElementById('backgroundCanvas');
-    const ctx = canvas.getContext('2d');
-
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    const particles = [];
-    const particleCount = 100;
-
-    function random(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    for(let i = 0; i < particleCount; i++) {
-        particles.push({
-            x: random(0, width),
-            y: random(0, height),
-            radius: random(1.5, 3),
-            dx: random(-0.5, 0.5),
-            dy: random(-0.5, 0.5),
-            alpha: random(0.3, 0.8)
-        });
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
-            ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-            ctx.shadowColor = '#fff';
-            ctx.shadowBlur = 6;
-            ctx.fill();
-            p.x += p.dx;
-            p.y += p.dy;
-
-            if(p.x < 0 || p.x > width) p.dx *= -1;
-            if(p.y < 0 || p.y > height) p.dy *= -1;
-        });
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+for(let i=0;i<80;i++){
+    p.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        r:Math.random()*2+1,
+        dx:Math.random()-0.4,
+        dy:Math.random()-0.4
     });
+}
+
+function anim(){
+    ctx.clearRect(0,0,w,h);
+    p.forEach(e=>{
+        ctx.beginPath();
+        ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,255,0.5)";
+        ctx.shadowBlur=4;
+        ctx.shadowColor="#fff";
+        ctx.fill();
+        e.x+=e.dx; e.y+=e.dy;
+        if(e.x<0||e.x>w)e.dx*=-1;
+        if(e.y<0||e.y>h)e.dy*=-1;
+    });
+    requestAnimationFrame(anim);
+}
+anim();
+
+addEventListener("resize",()=>{
+    w=c.width=innerWidth;
+    h=c.height=innerHeight;
+});
 </script>
 
 </body>
 </html>
+
+
 
