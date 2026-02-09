@@ -95,7 +95,7 @@
             color: #fff;
         }
 
-        /* ICONA DISCORD - CORNICE SIMILE BOX */
+        /* ICONA DISCORD - CORNICE SIMILE BOX, BIANCA */
         .discord-icon {
             position: fixed;
             top: 20px;
@@ -117,7 +117,7 @@
         .discord-icon img {
             width: 80%;
             height: 80%;
-            filter: drop-shadow(0 0 5px #7289da);
+            filter: brightness(1) invert(1); /* rende icona completamente bianca */
         }
 
         .discord-icon:hover {
@@ -148,6 +148,11 @@
                 width: 45px;
                 height: 45px;
             }
+
+            /* Header più piccolo per mobile */
+            header {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 500px) {
@@ -158,6 +163,11 @@
             .discord-icon {
                 width: 40px;
                 height: 40px;
+            }
+
+            /* Header ancora più piccolo su schermi piccoli */
+            header {
+                font-size: 1.6rem;
             }
         }
     </style>
