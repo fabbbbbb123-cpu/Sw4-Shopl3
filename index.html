@@ -3,11 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Streez War 4 Shop</title>
+<title>STREEZ WAR 4 SHOP</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+    --glass:rgba(255,255,255,0.12);
+    --border:rgba(255,255,255,0.35);
+}
+
 body{
     margin:0;
     font-family:'Rajdhani',sans-serif;
@@ -22,129 +28,178 @@ body{
     z-index:-1;
 }
 
-/* LAYOUT */
-.wrapper{
-    min-height:100vh;
+/* Discord Glass Box */
+.discord-box{
+    position:fixed;
+    top:18px;
+    right:18px;
+    width:56px;
+    height:56px;
     display:flex;
     align-items:center;
     justify-content:center;
+    background:var(--glass);
+    backdrop-filter:blur(10px);
+    border:1px solid var(--border);
+    border-radius:14px;
+    cursor:pointer;
+    z-index:50;
+    transition:.2s;
+}
+.discord-box:hover{
+    background:#fff;
+    transform:scale(1.05);
+}
+.discord-box svg{
+    width:60%;
+    height:60%;
+    fill:#fff;
+    transition:.2s;
+}
+.discord-box:hover svg{
+    fill:#000;
 }
 
-.menu{
+/* Intro */
+#intro{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:20;
+    animation:introFade 1.1s forwards .8s;
+}
+#intro h1{
+    font-family:'Bebas Neue';
+    font-size:4rem;
+    letter-spacing:4px;
+}
+@keyframes introFade{
+    to{opacity:0;pointer-events:none}
+}
+
+.wrapper{
+    min-height:100vh;
     display:flex;
     flex-direction:column;
-    gap:14px;
     align-items:center;
+    justify-content:center;
+    gap:12px; /* gap uniforme tra pulsanti */
 }
 
-/* === PROFILE HEADER === */
+/* Title */
+h1{
+    font-family:'Bebas Neue';
+    font-size:3rem;
+    letter-spacing:3px;
+}
+
+/* Profile */
 .profile{
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:8px;
-    margin-bottom:25px;
-    margin-top:-40px;
+    gap:6px;
 }
 
-.profile img{
-    width:42px;
-    height:42px;
+/* Avatar */
+.avatar{
+    width:56px;
+    height:56px;
     border-radius:50%;
-    border:2px solid #7a3cff;
-}
-
-.profile span{
-    font-size:1.3rem;
-    font-weight:700;
-    letter-spacing:1px;
-    color:#fff;
-    text-shadow:0 0 10px rgba(150,80,255,0.8);
-}
-
-/* BUTTON BASE */
-.menu-btn{
-    width:240px;
-    padding:14px 22px;
-    border-radius:999px;
-    background:#2a2a2a;
+    border:2px solid #fff;
     display:flex;
     align-items:center;
-    gap:12px;
+    justify-content:center;
+}
+.avatar svg{
+    width:55%;
+    height:55%;
+}
+.avatar.logged{
+    box-shadow:0 0 26px #fff;
+}
+
+/* Buttons */
+.menu-btn{
+    width:230px;
+    padding:14px;
+    border-radius:999px;
+    background:#000;
+    border:1px solid rgba(255,255,255,0.25);
+    color:#fff;
     cursor:pointer;
-    border:1px solid rgba(255,255,255,0.12);
-    transition:0.3s;
-    font-size:1rem;
+    transition:.18s;
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin:0; /* rimuove margini extra tra pulsanti */
 }
-
-/* ICONA SHOP */
-.shop-icon{
-    width:18px;
-    height:18px;
-    fill:#fff;
-}
-
-/* HOVER VIOLA */
 .menu-btn:hover{
-    background:linear-gradient(135deg,#7a3cff,#9f6bff);
-    box-shadow:0 0 30px rgba(150,80,255,0.7);
-    transform:scale(1.05);
+    background:#fff;
+    color:#000;
+    transform:scale(1.04);
 }
-
-/* PLAY */
-.menu-btn.primary{
-    background:linear-gradient(135deg,#5f2cff,#8f5cff);
-    box-shadow:0 0 35px rgba(150,80,255,0.8);
-}
-
-/* DISABLED */
 .menu-btn.disabled{
-    opacity:0.4;
+    opacity:.4;
     pointer-events:none;
 }
 
-/* SHOP LIST */
+/* Shop */
 .shop-list{
-    display:none;
+    max-height:0;
+    overflow:hidden;
+    transform:scale(.4);
+    opacity:0;
+    transition:.3s;
+    display:flex;
     flex-direction:column;
-    gap:10px;
-    margin-top:10px;
+    gap:8px;
+}
+.shop-list.show{
+    max-height:500px;
+    transform:scale(1);
+    opacity:1;
 }
 
-/* MOBILE */
-@media(max-width:600px){
-    .menu-btn{width:200px}
+/* Riduzione gap tra LOGIN/LOGOUT e SHOP/PLAY */
+.menu-btn + .menu-btn{
+    margin-top:6px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Discord -->
+<div class="discord-box" onclick="window.open('https://discord.gg/TUO_SERVER','_blank')">
+<svg viewBox="0 0 71 55" xmlns="http://www.w3.org/2000/svg">
+<path fill="currentColor" d="M60.104 4.551a58.97 58.97 0 0 0-14.175-4.389.07.07 0 0 0-.074.035c-.615 1.12-1.298 2.576-1.78 3.732-5.27-.792-10.508-.792-15.636 0-.48-1.155-1.163-2.61-1.78-3.732a.066.066 0 0 0-.074-.035A58.95 58.95 0 0 0 10.896 4.55a.061.061 0 0 0-.03.022C.613 17.902-.955 30.195.05 42.329c.002.024.016.047.033.062a60.502 60.502 0 0 0 17.897 9.06c.05.023.105.036.16.036a.182.182 0 0 0 .162-.084c1.377-1.89 2.607-3.875 3.66-5.928a.118.118 0 0 0-.067-.17c-1.979-.913-3.86-2.01-5.614-3.276a.115.115 0 0 1-.012-.188c.378-.283.756-.567 1.128-.856a.109.109 0 0 1 .114-.01c11.772 5.408 24.522 5.408 36.222 0a.107.107 0 0 1 .115.01c.372.289.75.573 1.128.856a.115.115 0 0 1-.012.188c-1.757 1.266-3.638 2.362-5.617 3.276a.117.117 0 0 0-.066.17c1.057 2.053 2.28 4.038 3.66 5.928a.184.184 0 0 0 .161.084.16.16 0 0 0 .161-.036 60.523 60.523 0 0 0 17.902-9.06.073.073 0 0 0 .034-.062c1.058-12.215-3.494-24.493-9.839-37.757a.06.06 0 0 0-.031-.022zM23.725 37.146c-3.182 0-5.805-2.91-5.805-6.497s2.567-6.497 5.805-6.497c3.261 0 5.872 2.908 5.805 6.497 0 3.587-2.567 6.497-5.805 6.497zm23.555 0c-3.182 0-5.805-2.91-5.805-6.497s2.567-6.497 5.805-6.497c3.261 0 5.872 2.908 5.805 6.497 0 3.587-2.544 6.497-5.805 6.497z"/>
+</svg>
+</div>
+
+<div id="intro"><h1>STREEZ WAR 4 SHOP</h1></div>
 <canvas id="backgroundCanvas"></canvas>
 
 <div class="wrapper">
-<div class="menu">
+<h1>STREEZ WAR 4 SHOP</h1>
 
-<!-- PROFILE -->
 <div class="profile">
-    <img src="https://www.roblox.com/headshot-thumbnail/image?userId=1&width=150&height=150">
+    <div class="avatar" id="avatar">
+        <svg viewBox="0 0 24 24">
+            <path fill="white"
+            d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.866 0-7 3.134-7 7v1h14v-1c0-3.866-3.134-7-7-7z"/>
+        </svg>
+    </div>
     <span id="username">Guest</span>
 </div>
 
-<!-- PLAY -->
-<div class="menu-btn primary disabled" id="playBtn" onclick="vaiAlGioco()">
-    ▶ PLAY
-</div>
-
-<!-- SHOP -->
-<div class="menu-btn" onclick="toggleShop()">
-    <svg class="shop-icon" viewBox="0 0 24 24">
-        <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44A2 2 0 0 0 10 19h10v-2H10.42a.25.25 0 0 1-.23-.37L11.1 15h5.45a2 2 0 0 0 1.8-1.1l3.58-6.49A1 1 0 0 0 21 6H7z"/>
-        <circle cx="10" cy="21" r="1.5"/>
-        <circle cx="18" cy="21" r="1.5"/>
-    </svg>
-    SHOP
-</div>
+<div class="menu-btn disabled" id="playBtn" onclick="vaiAlGioco()">▶ PLAY</div>
+<div class="menu-btn" onclick="toggleShop()">SHOP</div>
 
 <div class="shop-list" id="shopList">
     <div class="menu-btn" onclick="vaiARoblox(1)">Custom Emoji – 70 R$</div>
@@ -153,11 +208,8 @@ body{
     <div class="menu-btn" onclick="vaiARoblox(4)">Custom Avatar – 200 R$</div>
 </div>
 
-<!-- LOGIN / LOGOUT -->
 <div class="menu-btn" onclick="login()">LOGIN</div>
 <div class="menu-btn" onclick="logout()">LOGOUT</div>
-
-</div>
 </div>
 
 <script>
@@ -165,19 +217,26 @@ let logged=false;
 
 function login(){
     logged=true;
-    document.getElementById("username").innerText="StreezPlayer";
-    document.getElementById("playBtn").classList.remove("disabled");
+    username.innerText="Streez Player";
+    playBtn.classList.remove("disabled");
+    avatar.classList.add("logged");
 }
-
 function logout(){
     logged=false;
-    document.getElementById("username").innerText="Guest";
-    document.getElementById("playBtn").classList.add("disabled");
+    username.innerText="Guest";
+    playBtn.classList.add("disabled");
+    avatar.classList.remove("logged");
+}
+function toggleShop(){
+    shopList.classList.toggle("show");
 }
 
-function toggleShop(){
-    const list=document.getElementById("shopList");
-    list.style.display = list.style.display==="flex" ? "none" : "flex";
+function vaiAlGioco(){
+    if(logged){
+        window.open("https://www.roblox.com/games/ID_GIOCO","_blank");
+    } else {
+        alert("Devi prima effettuare il login!");
+    }
 }
 
 function vaiARoblox(id){
@@ -190,49 +249,38 @@ function vaiARoblox(id){
     window.open(links[id],"_blank");
 }
 
-function vaiAlGioco(){
-    if(logged){
-        window.open("https://www.roblox.com/games/ID_GIOCO","_blank");
-    }
-}
+/* BACKGROUND PARTICELLE BIANCO NEON */
+const c=backgroundCanvas, ctx=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize();addEventListener("resize",resize);
 
-/* PARTICELLE */
-const c=document.getElementById("backgroundCanvas");
-const ctx=c.getContext("2d");
-let w=c.width=innerWidth,h=c.height=innerHeight;
-const p=[];
-
-for(let i=0;i<80;i++){
-    p.push({
-        x:Math.random()*w,
-        y:Math.random()*h,
-        r:Math.random()*2+1,
-        dx:Math.random()-0.4,
-        dy:Math.random()-0.4
+const particles = [];
+for(let i=0;i<120;i++){
+    particles.push({
+        x:Math.random()*c.width,
+        y:Math.random()*c.height,
+        radius:Math.random()*2+1,
+        dx:(Math.random()-0.5)*1,
+        dy:(Math.random()-0.5)*1
     });
 }
 
-function anim(){
-    ctx.clearRect(0,0,w,h);
-    p.forEach(e=>{
+(function anim(){
+    ctx.clearRect(0,0,c.width,c.height);
+    particles.forEach(p=>{
         ctx.beginPath();
-        ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,255,255,0.5)";
-        ctx.shadowBlur=4;
-        ctx.shadowColor="#fff";
+        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,255,255,0.9)';
+        ctx.shadowColor='#fff';
+        ctx.shadowBlur=8;
         ctx.fill();
-        e.x+=e.dx; e.y+=e.dy;
-        if(e.x<0||e.x>w)e.dx*=-1;
-        if(e.y<0||e.y>h)e.dy*=-1;
+        p.x+=p.dx;
+        p.y+=p.dy;
+        if(p.x<0||p.x>c.width) p.dx*=-1;
+        if(p.y<0||p.y>c.height) p.dy*=-1;
     });
     requestAnimationFrame(anim);
-}
-anim();
-
-addEventListener("resize",()=>{
-    w=c.width=innerWidth;
-    h=c.height=innerHeight;
-});
+})();
 </script>
 
 </body>
