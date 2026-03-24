@@ -1,293 +1,364 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>STREEZ WAR 4 SHOP</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>STREETZ SHOP • Esclusivi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0f0f0f;
+      --red: #d50000;
+      --red-dark: #b00000;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Roboto', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.4;
+      font-weight: 500;
+    }
 
-<style>
-:root{
-    --glass:rgba(255,255,255,0.12);
-    --border:rgba(255,255,255,0.35);
-}
+    /* Language Selector */
+    .lang-selector {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+    }
 
-body{
-    margin:0;
-    font-family:'Rajdhani',sans-serif;
-    background:#000;
-    color:#fff;
-    overflow:hidden;
-}
+    .lang-box {
+      background: white;
+      padding: 45px 50px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      max-width: 380px;
+      width: 90%;
+    }
 
-#backgroundCanvas{
-    position:fixed;
-    inset:0;
-    z-index:-1;
-}
+    .lang-box h1 {
+      font-size: 2.1rem;
+      margin-bottom: 35px;
+      color: var(--red);
+    }
 
-/* Discord Glass Box */
-.discord-box{
-    position:fixed;
-    top:18px;
-    right:18px;
-    width:56px;
-    height:56px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:var(--glass);
-    backdrop-filter:blur(10px);
-    border:1px solid var(--border);
-    border-radius:14px;
-    cursor:pointer;
-    z-index:50;
-    transition:.2s;
-}
-.discord-box:hover{
-    background:#fff;
-    transform:scale(1.05);
-}
-.discord-box svg{
-    width:60%;
-    height:60%;
-    fill:#fff;
-    transition:.2s;
-}
-.discord-box:hover svg{
-    fill:#000;
-}
+    .lang-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin: 14px 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border: 2px solid var(--red);
+      border-radius: 40px;
+      background: white;
+      color: var(--red);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-/* Intro */
-#intro{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:20;
-    animation:introFade 1.1s forwards .8s;
-}
-#intro h1{
-    font-family:'Bebas Neue';
-    font-size:4rem;
-    letter-spacing:4px;
-}
-@keyframes introFade{
-    to{opacity:0;pointer-events:none}
-}
+    .lang-btn:hover {
+      background: var(--red);
+      color: white;
+    }
 
-.wrapper{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:12px; /* gap uniforme tra pulsanti */
-}
+    /* Main Content */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(213,0,0,0.12);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+    }
 
-/* Title */
-h1{
-    font-family:'Bebas Neue';
-    font-size:3rem;
-    letter-spacing:3px;
-}
+    .logo { font-size: 1.55rem; font-weight: 900; color: var(--red); letter-spacing: 1.5px; }
 
-/* Profile */
-.profile{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:6px;
-}
+    .hero { text-align: center; padding: 110px 5% 50px; }
+    .hero h1 { font-size: 3rem; font-weight: 900; color: var(--red); letter-spacing: 2px; }
+    .subtitle { font-size: 1.15rem; color: #444; margin-top: 8px; }
 
-/* Avatar */
-.avatar{
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    border:2px solid #fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.avatar svg{
-    width:55%;
-    height:55%;
-}
-.avatar.logged{
-    box-shadow:0 0 26px #fff;
-}
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 4%; }
 
-/* Buttons */
-.menu-btn{
-    width:230px;
-    padding:14px;
-    border-radius:999px;
-    background:#000;
-    border:1px solid rgba(255,255,255,0.25);
-    color:#fff;
-    cursor:pointer;
-    transition:.18s;
-    text-align:center;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    margin:0; /* rimuove margini extra tra pulsanti */
-}
-.menu-btn:hover{
-    background:#fff;
-    color:#000;
-    transform:scale(1.04);
-}
-.menu-btn.disabled{
-    opacity:.4;
-    pointer-events:none;
-}
+    .big-shop-frame {
+      background: white;
+      border: 3px solid var(--red);
+      border-radius: 16px;
+      padding: 28px 20px;
+      margin: 40px auto;
+      box-shadow: 0 8px 35px rgba(213, 0, 0, 0.12);
+    }
 
-/* Shop */
-.shop-list{
-    max-height:0;
-    overflow:hidden;
-    transform:scale(.4);
-    opacity:0;
-    transition:.3s;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-.shop-list.show{
-    max-height:500px;
-    transform:scale(1);
-    opacity:1;
-}
+    .shop-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--red);
+      margin-bottom: 28px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
 
-/* Riduzione gap tra LOGIN/LOGOUT e SHOP/PLAY */
-.menu-btn + .menu-btn{
-    margin-top:6px;
-}
-</style>
+    .icons-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px 18px;
+    }
+
+    .icon-box { text-align: center; width: 210px; }
+
+    .icon-img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      border: 2px solid var(--red);
+      border-radius: 12px;
+      padding: 8px;
+      background: #fff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .icon-label { font-size: 1.1rem; font-weight: 700; margin: 10px 0 4px; }
+    .price { font-size: 1.45rem; font-weight: 900; color: var(--red); margin: 4px 0 10px; }
+
+    .buy-wrapper {
+      padding: 3px;
+      border: 2px solid var(--red);
+      border-radius: 40px;
+      background: white;
+    }
+
+    .btn {
+      font-size: 0.95rem;
+      font-weight: 900;
+      padding: 9px 36px;
+      background: var(--red);
+      color: white;
+      border-radius: 40px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* Disclaimer Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 420px;
+      width: 90%;
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h3 { color: var(--red); margin-bottom: 16px; font-size: 1.4rem; }
+    .modal-content p { font-size: 1rem; line-height: 1.55; margin-bottom: 24px; color: #333; }
+
+    .modal-buttons { display: flex; gap: 12px; justify-content: center; }
+    .modal-btn {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .modal-btn.cancel { background: #ddd; color: #333; }
+    .modal-btn.proceed { background: var(--red); color: white; }
+  </style>
 </head>
-
 <body>
 
-<!-- Discord -->
-<div class="discord-box" onclick="window.open('https://discord.gg/TUO_SERVER','_blank')">
-<svg viewBox="0 0 71 55" xmlns="http://www.w3.org/2000/svg">
-<path fill="currentColor" d="M60.104 4.551a58.97 58.97 0 0 0-14.175-4.389.07.07 0 0 0-.074.035c-.615 1.12-1.298 2.576-1.78 3.732-5.27-.792-10.508-.792-15.636 0-.48-1.155-1.163-2.61-1.78-3.732a.066.066 0 0 0-.074-.035A58.95 58.95 0 0 0 10.896 4.55a.061.061 0 0 0-.03.022C.613 17.902-.955 30.195.05 42.329c.002.024.016.047.033.062a60.502 60.502 0 0 0 17.897 9.06c.05.023.105.036.16.036a.182.182 0 0 0 .162-.084c1.377-1.89 2.607-3.875 3.66-5.928a.118.118 0 0 0-.067-.17c-1.979-.913-3.86-2.01-5.614-3.276a.115.115 0 0 1-.012-.188c.378-.283.756-.567 1.128-.856a.109.109 0 0 1 .114-.01c11.772 5.408 24.522 5.408 36.222 0a.107.107 0 0 1 .115.01c.372.289.75.573 1.128.856a.115.115 0 0 1-.012.188c-1.757 1.266-3.638 2.362-5.617 3.276a.117.117 0 0 0-.066.17c1.057 2.053 2.28 4.038 3.66 5.928a.184.184 0 0 0 .161.084.16.16 0 0 0 .161-.036 60.523 60.523 0 0 0 17.902-9.06.073.073 0 0 0 .034-.062c1.058-12.215-3.494-24.493-9.839-37.757a.06.06 0 0 0-.031-.022zM23.725 37.146c-3.182 0-5.805-2.91-5.805-6.497s2.567-6.497 5.805-6.497c3.261 0 5.872 2.908 5.805 6.497 0 3.587-2.567 6.497-5.805 6.497zm23.555 0c-3.182 0-5.805-2.91-5.805-6.497s2.567-6.497 5.805-6.497c3.261 0 5.872 2.908 5.805 6.497 0 3.587-2.544 6.497-5.805 6.497z"/>
-</svg>
-</div>
-
-<div id="intro"><h1>STREEZ WAR 4 SHOP</h1></div>
-<canvas id="backgroundCanvas"></canvas>
-
-<div class="wrapper">
-<h1>STREEZ WAR 4 SHOP</h1>
-
-<div class="profile">
-    <div class="avatar" id="avatar">
-        <svg viewBox="0 0 24 24">
-            <path fill="white"
-            d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-3.866 0-7 3.134-7 7v1h14v-1c0-3.866-3.134-7-7-7z"/>
-        </svg>
+  <!-- SELEZIONE LINGUA -->
+  <div class="lang-selector" id="langSelector">
+    <div class="lang-box">
+      <h1>Choose Language</h1>
+      <button class="lang-btn" onclick="setLanguage('it')">🇮🇹 Italiano</button>
+      <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
     </div>
-    <span id="username">Guest</span>
-</div>
+  </div>
 
-<div class="menu-btn disabled" id="playBtn" onclick="vaiAlGioco()">▶ PLAY</div>
-<div class="menu-btn" onclick="toggleShop()">SHOP</div>
+  <!-- CONTENUTO DEL SITO -->
+  <header>
+    <div class="logo" id="logo">STREETZ SHOP</div>
+    <i class="fas fa-bars menu-btn"></i>
+  </header>
 
-<div class="shop-list" id="shopList">
-    <div class="menu-btn" onclick="vaiARoblox(1)">Custom Emoji – 70 R$</div>
-    <div class="menu-btn" onclick="vaiARoblox(2)">Custom Name – 90 R$</div>
-    <div class="menu-btn" onclick="vaiARoblox(3)">Custom Level – 100 R$</div>
-    <div class="menu-btn" onclick="vaiARoblox(4)">Custom Avatar – 200 R$</div>
-</div>
+  <section class="hero">
+    <h1 id="heroTitle">EXCLUSIVE PERKS</h1>
+    <p class="subtitle" id="heroSubtitle">Scegli il tuo vantaggio</p>
+  </section>
 
-<div class="menu-btn" onclick="login()">LOGIN</div>
-<div class="menu-btn" onclick="logout()">LOGOUT</div>
-</div>
+  <div class="container">
+    <div class="big-shop-frame">
+      <h2 class="shop-title" id="shopTitle">PERKS DISPONIBILI</h2>
 
-<script>
-let logged=false;
+      <div class="icons-row">
 
-function login(){
-    logged=true;
-    username.innerText="Streez Player";
-    playBtn.classList.remove("disabled");
-    avatar.classList.add("logged");
-}
-function logout(){
-    logged=false;
-    username.innerText="Guest";
-    playBtn.classList.add("disabled");
-    avatar.classList.remove("logged");
-}
-function toggleShop(){
-    shopList.classList.toggle("show");
-}
+        <div class="icon-box">
+          <img class="icon-img" src="https://via.placeholder.com/280x280/d50000/ffffff?text=Emoji" alt="Custom Emoji">
+          <div class="icon-label" id="label1">Custom Emoji</div>
+          <div class="price">110 Robux</div>
+          <div class="buy-wrapper">
+            <a href="#" class="btn buy-btn" data-link="https://www.roblox.com/game-pass/1766721152/Custom-Emoji" id="buy1">ACQUISTA</a>
+          </div>
+        </div>
 
-function vaiAlGioco(){
-    if(logged){
-        window.open("https://www.roblox.com/games/ID_GIOCO","_blank");
-    } else {
-        alert("Devi prima effettuare il login!");
+        <div class="icon-box">
+          <img class="icon-img" src="https://via.placeholder.com/280x280/d50000/ffffff?text=Avatar" alt="Custom Avatar">
+          <div class="icon-label" id="label2">Custom Avatar</div>
+          <div class="price">80 Robux</div>
+          <div class="buy-wrapper">
+            <a href="#" class="btn buy-btn" data-link="https://www.roblox.com/it/game-pass/1766677128" id="buy2">ACQUISTA</a>
+          </div>
+        </div>
+
+        <div class="icon-box">
+          <img class="icon-img" src="https://via.placeholder.com/280x280/d50000/ffffff?text=Name" alt="Custom Name">
+          <div class="icon-label" id="label3">Custom Name</div>
+          <div class="price">90 Robux</div>
+          <div class="buy-wrapper">
+            <a href="#" class="btn buy-btn" data-link="https://www.roblox.com/game-pass/1766231271/Custom-Name" id="buy3">ACQUISTA</a>
+          </div>
+        </div>
+
+        <div class="icon-box">
+          <img class="icon-img" src="https://via.placeholder.com/280x280/d50000/ffffff?text=Level" alt="Custom Level">
+          <div class="icon-label" id="label4">Custom Level</div>
+          <div class="price">200 Robux</div>
+          <div class="buy-wrapper">
+            <a href="#" class="btn buy-btn" data-link="https://www.roblox.com/game-pass/1764735126/Custom-Level" id="buy4">ACQUISTA</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER MODAL -->
+  <div class="modal" id="disclaimerModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Attenzione</h3>
+      <p id="disclaimerText">
+        Acquistando questo Game Pass accetti i termini del gioco.<br><br>
+        Questo è un contenuto cosmetico/opzionale e non garantisce alcun vantaggio che violi le regole di Roblox.
+      </p>
+      <div class="modal-buttons">
+        <button class="modal-btn cancel" id="cancelBtn">Annulla</button>
+        <button class="modal-btn proceed" id="proceedBtn">Procedi all'acquisto</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 STREETZ • Tutti i diritti riservati • Powered by Robux
+  </footer>
+
+  <script>
+    let currentLink = '';
+
+    function setLanguage(lang) {
+      document.getElementById('langSelector').style.display = 'none';
+
+      if (lang === 'en') {
+        // === ENGLISH ===
+        document.getElementById('heroTitle').textContent = "EXCLUSIVE PERKS";
+        document.getElementById('heroSubtitle').textContent = "Choose your advantage";
+        document.getElementById('shopTitle').textContent = "AVAILABLE PERKS";
+        document.getElementById('modalTitle').textContent = "Disclaimer";
+        document.getElementById('cancelBtn').textContent = "Cancel";
+        document.getElementById('proceedBtn').textContent = "Proceed to purchase";
+        document.getElementById('logo').textContent = "STREETZ SHOP";
+
+        document.getElementById('label1').textContent = "Custom Emoji";
+        document.getElementById('label2').textContent = "Custom Avatar";
+        document.getElementById('label3').textContent = "Custom Name";
+        document.getElementById('label4').textContent = "Custom Level";
+
+        // Pulsanti ACQUISTA → BUY
+        document.getElementById('buy1').textContent = "BUY";
+        document.getElementById('buy2').textContent = "BUY";
+        document.getElementById('buy3').textContent = "BUY";
+        document.getElementById('buy4').textContent = "BUY";
+
+        // Disclaimer in inglese
+        document.getElementById('disclaimerText').innerHTML = 
+          "By purchasing this Game Pass you accept the game terms.<br><br>" +
+          "Important:After purchasing, make a ticket on the discord server to redeem what you bought..";
+      } 
+      else {
+        // === ITALIANO ===
+        document.getElementById('heroTitle').textContent = "PERK ESCLUSIVI";
+        document.getElementById('heroSubtitle').textContent = "Scegli il tuo vantaggio";
+        document.getElementById('shopTitle').textContent = "PERKS DISPONIBILI";
+        document.getElementById('modalTitle').textContent = "Attenzione";
+        document.getElementById('cancelBtn').textContent = "Annulla";
+        document.getElementById('proceedBtn').textContent = "Procedi all'acquisto";
+        document.getElementById('logo').textContent = "STREETZ SHOP";
+
+        document.getElementById('label1').textContent = "Custom Emoji";
+        document.getElementById('label2').textContent = "Custom Avatar";
+        document.getElementById('label3').textContent = "Custom Name";
+        document.getElementById('label4').textContent = "Custom Level";
+
+        // Pulsanti in italiano
+        document.getElementById('buy1').textContent = "ACQUISTA";
+        document.getElementById('buy2').textContent = "ACQUISTA";
+        document.getElementById('buy3').textContent = "ACQUISTA";
+        document.getElementById('buy4').textContent = "ACQUISTA";
+
+        // Disclaimer in italiano
+        document.getElementById('disclaimerText').innerHTML = 
+          "Acquistando questo Game Pass accetti i termini del gioco.<br><br>" +
+          "Importante:dopo aver comprato fai un ticket sul server discord per riscattare cio che hai comprato.";
+      }
     }
-}
 
-function vaiARoblox(id){
-    const links={
-        1:"https://www.roblox.com/game-pass/ID1",
-        2:"https://www.roblox.com/game-pass/ID2",
-        3:"https://www.roblox.com/game-pass/ID3",
-        4:"https://www.roblox.com/game-pass/ID4"
-    };
-    window.open(links[id],"_blank");
-}
+    // Modal Disclaimer
+    const modal = document.getElementById('disclaimerModal');
 
-/* BACKGROUND PARTICELLE BIANCO NEON */
-const c=backgroundCanvas, ctx=c.getContext("2d");
-function resize(){c.width=innerWidth;c.height=innerHeight}
-resize();addEventListener("resize",resize);
-
-const particles = [];
-for(let i=0;i<120;i++){
-    particles.push({
-        x:Math.random()*c.width,
-        y:Math.random()*c.height,
-        radius:Math.random()*2+1,
-        dx:(Math.random()-0.5)*1,
-        dy:(Math.random()-0.5)*1
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        currentLink = this.getAttribute('data-link');
+        modal.style.display = 'flex';
+      });
     });
-}
 
-(function anim(){
-    ctx.clearRect(0,0,c.width,c.height);
-    particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-        ctx.fillStyle='rgba(255,255,255,0.9)';
-        ctx.shadowColor='#fff';
-        ctx.shadowBlur=8;
-        ctx.fill();
-        p.x+=p.dx;
-        p.y+=p.dy;
-        if(p.x<0||p.x>c.width) p.dx*=-1;
-        if(p.y<0||p.y>c.height) p.dy*=-1;
+    document.getElementById('cancelBtn').addEventListener('click', () => modal.style.display = 'none');
+    document.getElementById('proceedBtn').addEventListener('click', () => {
+      if (currentLink) window.open(currentLink, '_blank');
+      modal.style.display = 'none';
     });
-    requestAnimationFrame(anim);
-})();
-</script>
 
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
